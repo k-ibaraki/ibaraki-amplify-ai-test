@@ -1,0 +1,1 @@
+# ibaraki-amplify-ai-test
