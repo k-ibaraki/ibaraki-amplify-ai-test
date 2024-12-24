@@ -9,5 +9,3 @@ defineBackend({
   auth,
   data,
 });
-
-console.log('Backend defined');
