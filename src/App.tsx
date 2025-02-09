@@ -1,24 +1,20 @@
+// Styles
 import './App.css'
 
+// AWS Amplify UI Components
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { Amplify } from 'aws-amplify';
-
 import { AIConversation } from '@aws-amplify/ui-react-ai';
 
-import { generateClient } from "aws-amplify/api";
-import { Schema } from "../amplify/data/resource";
-import { createAIHooks } from "@aws-amplify/ui-react-ai";
+// Import hooks from our client file
+import { useAIConversation } from './api/amplifyClient';
 
-import outputs from "../amplify_outputs.json";
-Amplify.configure(outputs);
-
-export const client = generateClient<Schema>({ authMode: "userPool" });
-export const { useAIConversation } = createAIHooks(client);
-
-
-
+/**
+ * Main App component
+ * Provides authentication wrapper and chat interface
+ */
 function App() {
+  // Initialize AI conversation hook
   const [
     {
       data: { messages },
@@ -29,11 +25,16 @@ function App() {
 
   return (
     <Authenticator>
-      <AIConversation
-        messages={messages}
-        isLoading={isLoading}
-        handleSendMessage={handleSendMessage}
-      />
+      <div className="app-container">
+        <h1 className="app-title">AI Assistant</h1>
+        <div className="chat-container">
+          <AIConversation
+            messages={messages}
+            isLoading={isLoading}
+            handleSendMessage={handleSendMessage}
+          />
+        </div>
+      </div>
     </Authenticator>
   )
 }
